@@ -10,6 +10,7 @@ package introduction;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -33,7 +34,8 @@ public class Intro {
 
     public void Intro1(String[] options) {
 
-        System.out.print(BOLD + YELLOW_FOREGROUND + " ╔╦╗  ╔═╗  ╦  ╔╗╔    ╔╦╗  ╔═╗  ╔╗╔  ╦ ╦\n" +
+        System.out.print(BOLD + YELLOW_FOREGROUND +
+                " ╔╦╗  ╔═╗  ╦  ╔╗╔    ╔╦╗  ╔═╗  ╔╗╔  ╦ ╦\n" +
                 " ║║║  ╠═╣  ║  ║║║    ║║║  ║╣   ║║║  ║ ║\n" +
                 " ╩ ╩  ╩ ╩  ╩  ╝╚╝    ╩ ╩  ╚═╝  ╝╚╝  ╚═╝\n" + PLAIN + RED_FOREGROUND +
                 "▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞\n" + RESET);
@@ -104,9 +106,18 @@ public class Intro {
     }
 
     public void quoteOfTheDay() {
-        final String[] QUOTES = { "Kill them Johny. Kill them all.", "Knwxn cwcs spcow!", "o0o0oooOooo)OO)oo0ooO)(oo"};
+        final String[] QUOTES = { "Kill them Johny. Kill them all.“ (Unknown)",
+                " “Evil’s just destructive? Then storms are evil if it’s that simple." +
+                        " And we have a fire, and there’s hail. Underwriters lump it all under ‘Acts of God.’ (Hannibal Lecter)”",
+                " “Being smart spoils a lot of things, doesn’t it?“ (Hannibal Lecter)",
+                " “Knwxn cwcs spcow!“ (Guaycjjtr)", " “o0o0oooOooo)OO)oo0ooO)(oo...“  {Oo0oo)",
+                " “I do wish we could chat longer, but I’m having an old friend for dinner.“ (Hannibal Lecter)",
+                " “Remarkable boy. I do admire your courage. I think I’ll eat your heart!” (Hannibal Lecter)",
+                " “You fly back to school now, little Starling. Fly, fly, fly. Fly, fly, fly.” (Hannibal Lecter)"};
+
                 String quote = drawFromArray(QUOTES);
                 fakeCLS();
+                System.out.println("\n");
                 System.out.println(quote);
     }
 
@@ -125,7 +136,23 @@ public class Intro {
     }
 
     public void showInstructions() {
-        fakeCLS();
+        System.out.println(BLUER_FOREGROUND + "\n" + YELLOWER_FOREGROUND);
+        System.out.println("       __ __  __  __  ______ ____  __ __   ___ ______ __   ___   __  __  __ \n" +
+                "       || ||\\ || (( \\ | || | || \\\\ || ||  //   | || | ||  // \\\\  ||\\ || (( \\\n" +
+                "       || ||\\\\||  \\\\    ||   ||_// || || ((      ||   || ((   )) ||\\\\||  \\\\ \n" +
+                "       || || \\|| \\_))   ||   || \\\\ \\\\_//  \\\\__   ||   ||  \\\\_//  || \\|| \\_))\n\n" +
+                RESET+ "       ===========================================================================\n");
+        System.out.println(
+                "       The goal of Polish Draughts Game is to remove all your opponent's pieces\n" +
+                "        from the board or block its ability to move with the remaining pawns.\n\n" +
+                "       Your pieces can only move forward one tile diagonally.\n\n" +
+                "       To capture an opponent's piece and remove it from the board,\n" +
+                "        you need to jump over their piece with one of yours.\n\n" +
+                "       If one of your pieces gets to the opposite side of the board (the last row),\n" +
+                "        it will turn into a Queen.\n" +
+                "       Queens can move and jump diagonally in any direction at any distance.\n\n" + RED_FOREGROUND +
+                "                               The marvellous Team ONE wish you good luck!\n" + RESET);
+
     }
 
     public void startThatBrutalGame() {
@@ -314,10 +341,47 @@ public class Intro {
     }
 
 
+    public void printDocumentation() {
+        try {
+            playSound(("sounds/chimera.wav"));
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        fakeCLS();
+        System.out.println("\n\n" + RED_FOREGROUND);
+        System.out.println("                              ...\n" +
+                "           s,                .                    .s\n" +
+                "            ss,              . ..               .ss\n" +
+                "            'SsSs,           ..  .           .sSsS'\n" +
+                "             sSs'sSs,        .   .        .sSs'sSs\n" +
+                "              sSs  'sSs,      ...      .sSs'  sSs\n" +
+                "               sS,    'sSs,         .sSs'    .Ss\n" +
+                "               'Ss       'sSs,   .sSs'       sS'\n" +
+                "      ...       sSs         ' .sSs'         sSs       ...\n" +
+                "     .           sSs       .sSs' ..,       sSs       .\n" +
+                "     . ..         sS,   .sSs'  .  'sSs,   .Ss        . ..\n" +
+                "     ..  .        'Ss .Ss'     .     'sSs. ''        ..  .\n" +
+                "     .   .         sSs '       .        'sSs,        .   .\n" +
+                "      ...      .sS.'sSs        .        .. 'sSs,      ...\n" +
+                "            .sSs'    sS,     .....     .Ss    'sSs,\n" +
+                "         .sSs'       'Ss       .       sS'       'sSs,\n" +
+                "      .sSs'           sSs      .      sSs           'sSs,\n" +
+                "   .sSs'____________________________ sSs ______________'sSs,\n" +
+                ".sSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS'.Ss SSSSSSSSSSSSSSSSSSSSSs,\n" +
+                "                        ...         sS'\n" +
+                "                         sSs       sSs\n" +
+                "                          sSs     sSs       - LCF\n" +
+                "                           sS,   .Ss\n" +
+                "                           'Ss   sS'\n" +
+                "                            sSs sSs\n" +
+                "                             sSsSs\n" +
+                "                              sSs\n" +
+                "                               s");
+        waitFor(5000);
+        System.out.println("\n  Press ENTER to hail Satan!!!\n" + RESET);
 
 
-
-
-
-
+    }
 }

@@ -22,7 +22,7 @@ public class Main {
         Intro consoleHelper = new Intro();
         consoleHelper.printTitle1();
         try {
-            Intro.playSound("sounds/HAL_9000.wav");
+            playSound("sounds/HAL_9000.wav");
         } catch (LineUnavailableException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -31,7 +31,7 @@ public class Main {
         System.out.println(" Loading...");
 
         try {
-            Intro.simulateLoading();
+            simulateLoading();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -53,7 +53,7 @@ public class Main {
         };
 
         try {
-            Intro.playSound("sounds/just_a_moment.wav");
+            playSound("sounds/just_a_moment.wav");
         } catch (LineUnavailableException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -71,6 +71,8 @@ public class Main {
                         break;
                     case 2:
                         consoleHelper.showInstructions();
+                        System.out.println("           Press ENTER to go back");
+                        waitForEnter();
                         break;
                     case 3:
                         consoleHelper.showHistoryofDraughts();
@@ -83,6 +85,10 @@ public class Main {
                         break;
                     case 6:
                         exit(0);
+                    case 666:
+                        consoleHelper.printDocumentation();
+                        waitForEnter();
+                        break;
                     default: {
                         System.out.println(RED_FOREGROUND + "   Hey, that's not how we get along. Follow the instructions below." + RESET);
                         System.out.println("   Please choose an option (number between 1 and " + options.length + ")");
@@ -94,7 +100,7 @@ public class Main {
                 System.out.println(RED_FOREGROUND + "   Well, that's not how we get along. Follow the instructions below." + RESET);
                 System.out.println("   Please choose an option (number between 1 and " + options.length + ")...\n");
                 try {
-                    Intro.playSound("sounds/enough_info.wav");
+                    playSound("sounds/enough_info.wav");
                 } catch (LineUnavailableException e) {
                     throw new RuntimeException(e);
                 } catch (IOException e) {
@@ -106,15 +112,14 @@ public class Main {
     }
 
 
-    // Options
-    private static void option1() {
-        System.out.println("Thanks for choosing option 1");
-    }
-    private static void option2() {
-        System.out.println("Thanks for choosing option 2");
-    }
-    private static void option3() {
-        System.out.println("Thanks for choosing option 3");
+
+
+
+    public static void waitForEnter() {
+        Scanner s666 = new Scanner(System.in);
+        String ave = " ";
+        ave = s666.nextLine();
+        s666.nextLine();
     }
 
 
