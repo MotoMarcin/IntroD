@@ -7,7 +7,7 @@
 //                |    |______ |_____| |  |  |      |     | | \  | |______
 //                |    |______ |     | |  |  |      |_____| |  \_| |______
 
-        package introduction;
+package introduction;
 
 import javax.sound.sampled.LineUnavailableException;
 import java.awt.*;
@@ -49,11 +49,11 @@ public class Main {
         playSound("sounds/just_a_moment.wav");
         consoleHelper.printTitle2();
         int option = 1;
-        while (option!=6){
+        while (option != 6) {
             consoleHelper.Intro1(options);
             try {
                 option = scanner.nextInt();
-                switch (option){
+                switch (option) {
                     case 1:
                         consoleHelper.startThatBrutalGame();
                         break;
@@ -87,8 +87,7 @@ public class Main {
                         Toolkit.getDefaultToolkit().beep();
                     }
                 }
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.println(RED_FOREGROUND + "   Well, that's not how we get along. Follow the instructions below." + RESET);
                 System.out.println("   Please choose an option (number between 1 and " + options.length + ")...\n");
                 playSound("sounds/enough_info.wav");
