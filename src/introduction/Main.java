@@ -98,9 +98,6 @@ public class Main {
     }
 
 
-
-
-
     public static void waitForEnter() {
         Scanner s666 = new Scanner(System.in);
         String ave = " ";
