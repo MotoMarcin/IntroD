@@ -10,11 +10,7 @@ package introduction;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.Random;
-import java.util.Scanner;
-
-import static java.lang.System.exit;
 
 public class Intro {
 
@@ -26,19 +22,13 @@ public class Intro {
     public static final String RED_FOREGROUND = "\u001B[31m";
     public static final String BLUER_FOREGROUND = "\033[1;34m";
     public static final String YELLOWER_FOREGROUND = "\033[1;33m";
-    public static final String BLACK_BACKGROUND = "\033[48;2;127;66;40m";
-    public static final String BLACK_FOREGROUND = "\033[38;2;0;0;0m";
-    public static final String WHITE_BACKGROUND = "\033[48;2;234;240;174m";
-    public static final String WHITE_FOREGROUND = "\033[38;2;255;255;255m";
+    public static final String PURPLE_BRIGHT_FOREGROUND = "\033[0;95m";
+
     private static final Random DRAWN = new Random();
 
     public void Intro1(String[] options) {
 
-        System.out.print(BOLD + YELLOW_FOREGROUND +
-                " ╔╦╗  ╔═╗  ╦  ╔╗╔    ╔╦╗  ╔═╗  ╔╗╔  ╦ ╦\n" +
-                " ║║║  ╠═╣  ║  ║║║    ║║║  ║╣   ║║║  ║ ║\n" +
-                " ╩ ╩  ╩ ╩  ╩  ╝╚╝    ╩ ╩  ╚═╝  ╝╚╝  ╚═╝\n" + PLAIN + RED_FOREGROUND +
-                "▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞\n" + RESET);
+        printMenuHeader();
         for (String option : options) {
             System.out.println(option);
             waitFor(100);
@@ -46,14 +36,17 @@ public class Intro {
 
     }
 
+    private void printMenuHeader() {
+        System.out.print(BOLD + YELLOW_FOREGROUND +
+                " ╔╦╗  ╔═╗  ╦  ╔╗╔    ╔╦╗  ╔═╗  ╔╗╔  ╦ ╦\n" +
+                " ║║║  ╠═╣  ║  ║║║    ║║║  ║╣   ║║║  ║ ║\n" +
+                " ╩ ╩  ╩ ╩  ╩  ╝╚╝    ╩ ╩  ╚═╝  ╝╚╝  ╚═╝\n" + PLAIN + RED_FOREGROUND +
+                "▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞▞\n" + RESET);
+
+    }
+
     public void goIntro(String[] args) {
-        try {
-            playSound("sounds/HAL_9000.wav");
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        playSound("sounds/HAL_9000.wav");
 
         try {
             simulateLoading();
@@ -61,52 +54,11 @@ public class Intro {
             throw new RuntimeException(e);
         }
 
-        String[] options = {" [1] - Start the game",
-                " [2] - Game instructions",
-                " [3] - History of polish draughts",
-                " [4] - The great team behind",
-                " [5] - Random quote of the day",
-                " [6] - Exit"
-        };
-        Scanner scanner = new Scanner(System.in);
-        int option = 1;
-        while (option != 6) {
-            Intro1(options);
-            try {
-                option = scanner.nextInt();
-                switch (option) {
-                    case 1:
-                        startThatBrutalGame();
-                        break;
-                    case 2:
-                        showInstructions();
-                        break;
-                    case 3:
-                        showHistoryofDraughts();
-                        break;
-                    case 4:
-                        teamInfo();
-                        break;
-                    case 5:
-                        quoteOfTheDay();
-                        break;
-                    case 6:
-                        exit(0);
-                    default: {
-                        System.out.println(RED_FOREGROUND + "   Hey, that's not how we get along. Follow the instructions below." + RESET);
-                        System.out.println("   Please choose an option (number between 1 and " + options.length + ")");
-                    }
-                }
-            } catch (Exception ex) {
-                System.out.println(RED_FOREGROUND + "   Well, that's not how we get along. Follow the instructions below." + RESET);
-                System.out.println("   Please choose an option (number between 1 and " + options.length + ")...\n");
-                scanner.next();
-            }
-        }
+
     }
 
     public void quoteOfTheDay() {
-        final String[] QUOTES = { "Kill them Johny. Kill them all.“ (Unknown)",
+        final String[] QUOTES = {"Kill them Johny. Kill them all.“ (Unknown)",
                 " “Evil’s just destructive? Then storms are evil if it’s that simple." +
                         " And we have a fire, and there’s hail. Underwriters lump it all under ‘Acts of God.’ (Hannibal Lecter)”",
                 " “Being smart spoils a lot of things, doesn’t it?“ (Hannibal Lecter)",
@@ -115,78 +67,81 @@ public class Intro {
                 " “Remarkable boy. I do admire your courage. I think I’ll eat your heart!” (Hannibal Lecter)",
                 " “You fly back to school now, little Starling. Fly, fly, fly. Fly, fly, fly.” (Hannibal Lecter)"};
 
-                String quote = drawFromArray(QUOTES);
-                fakeCLS();
-                System.out.println("\n");
-                System.out.println(quote);
+        playSound("sounds/well.wav");
+        String quote = drawFromArray(QUOTES);
+        fakeCLS();
+        System.out.println("\n");
+        System.out.println(quote);
     }
 
     public String drawFromArray(String[] input) {
-            if (input != null || input.length > 0) {
+        if (input != null || input.length > 0) {
 
-            }
-
-            return input[DRAWN.nextInt(input.length)];
         }
+
+        return input[DRAWN.nextInt(input.length)];
+    }
 
 
     public void showHistoryofDraughts() {
         fakeCLS();
+        playSound("sounds/puzzling.wav" +
+                "");
+        System.out.println(PURPLE_BRIGHT_FOREGROUND +
+                "   _    ,                                                               \n" +
+                "  ' )  /      _/_                   /)      /                  /  _/_   \n" +
+                "   /--/ o _   /  __ __  __  ,   __ //    __/ __  __.  . . _,  /_  /  _  \n" +
+                "  /  (_<_/_)_<__(_)/ (_/ (_/_  (_)//_   (_/_/ (_(_/|_(_/_(_)_/ /_<__/_)_\n" +
+                "                          /      />                       /|            \n" +
+                "                         '      </                       |/     \n\n" + BLUER_FOREGROUND);
+
+
+        System.out.println(
+                "    A board resembling a draughts board was found  in Ur, an important\n" +
+                        "      Sumerain city-state in ancient Mesopotamia dating from 3000 BC.\n\n" +
+                        "    Polish Draughts are larger than standard draughts (100 instead of 64 fields) " +
+                        "      and have 4 rows of pawns instead of 3 rows of pawns (20 pawns vs. 12 pawns in standard draughts).\n\n" +
+                        "    Polish Draughts were invented by Polish officer Franciszek Żubr," +
+                        "      a member of the Maria Leszczyńska and Louis XV royal court .\n" +
+                        "      ( Maria Leszczyńska was Stanisław Leszczyński's - Polish king - daughter. )\n\n" +
+                        "    In Poland this draughts type until XIX century was called the French Draughts.\n\n" +
+                        "    The game was very popular among the nobility and French nobel ladies usually played with black pawns\n" +
+                        "      to contrast it with the whiteness of their skin (since tanning was not fashionable at that time in Europe).\n\n" + RESET);
 
     }
 
     public void showInstructions() {
+        playSound("sounds/mind_is_going.wav");
         System.out.println(BLUER_FOREGROUND + "\n" + YELLOWER_FOREGROUND);
         System.out.println("       __ __  __  __  ______ ____  __ __   ___ ______ __   ___   __  __  __ \n" +
                 "       || ||\\ || (( \\ | || | || \\\\ || ||  //   | || | ||  // \\\\  ||\\ || (( \\\n" +
                 "       || ||\\\\||  \\\\    ||   ||_// || || ((      ||   || ((   )) ||\\\\||  \\\\ \n" +
                 "       || || \\|| \\_))   ||   || \\\\ \\\\_//  \\\\__   ||   ||  \\\\_//  || \\|| \\_))\n\n" +
-                RESET+ "       ===========================================================================\n");
+                RESET + "       ===========================================================================\n");
         System.out.println(
                 "       The goal of Polish Draughts Game is to remove all your opponent's pieces\n" +
-                "        from the board or block its ability to move with the remaining pawns.\n\n" +
-                "       Your pieces can only move forward one tile diagonally.\n\n" +
-                "       To capture an opponent's piece and remove it from the board,\n" +
-                "        you need to jump over their piece with one of yours.\n\n" +
-                "       If one of your pieces gets to the opposite side of the board (the last row),\n" +
-                "        it will turn into a Queen.\n" +
-                "       Queens can move and jump diagonally in any direction at any distance.\n\n" + RED_FOREGROUND +
-                "                               The marvellous Team ONE wish you good luck!\n" + RESET);
+                        "        from the board or block its ability to move with the remaining pawns.\n\n" +
+                        "       Your pieces can only move forward one tile diagonally.\n\n" +
+                        "       To capture an opponent's piece and remove it from the board,\n" +
+                        "        you need to jump over their piece with one of yours.\n\n" +
+                        "       If one of your pieces gets to the opposite side of the board (the last row),\n" +
+                        "        it will turn into a Queen.\n" +
+                        "       Queens can move and jump diagonally in any direction at any distance.\n\n" + RED_FOREGROUND +
+                        "                               The marvellous Team ONE wish you good luck!\n" + RESET);
 
     }
 
     public void startThatBrutalGame() {
         fakeCLS();
-        try {
-            playSound("sounds/quite_sure.wav");
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        playSound("sounds/quite_sure.wav");
         printItSlow("  Tu coś na sekundę max można mignąć");
         System.exit(1);
         fakeCLS();
     }
 
-    // Options
-    public static void option1() {
-        System.out.println("Thanks for choosing option 1");
-    }
-
-    public static void option2() {
-        System.out.println("Thanks for choosing option 2");
-    }
-
     public static void teamInfo() {
         fakeCLS();
-        try {
-            playSound("sounds/l_ysium.wav");
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        playSound("sounds/l_ysium.wav");
         printTeamONE();
         waitFor(1000);
     }
@@ -194,7 +149,7 @@ public class Intro {
 
     public static void fakeCLS() {
         for (int i = 0; i < 10; i++)
-            System.out.println("\n\n\n\n\n");
+            System.out.println("\n\n\n\n");
     }
 
     public static void waitFor(int delay) throws RuntimeException {
@@ -205,8 +160,7 @@ public class Intro {
         }
     }
 
-
-    public static void playSound(String soundFile) throws LineUnavailableException, IOException {
+    public static void playSound(String soundFile) {
         File f = new File("./" + soundFile);
         AudioInputStream audioIn = null;
         try {
@@ -222,10 +176,15 @@ public class Intro {
         } catch (LineUnavailableException e) {
             throw new RuntimeException(e);
         }
-        clip.open(audioIn);
+        try {
+            clip.open(audioIn);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         clip.start();
     }
-
 
     private static String lastLine = "";
 
@@ -271,11 +230,10 @@ public class Intro {
         }
     }
 
-
     public void printTitle1() {
         fakeCLS();
         System.out.println(
-                        "8888888b.          888 d8b          888           8888888b.                                    888      888             \n" +
+                "8888888b.          888 d8b          888           8888888b.                                    888      888             \n" +
                         "888   Y88b         888 Y8P          888           888  \"Y88b                                   888      888             \n" +
                         "888    888         888              888           888    888                                   888      888             \n" +
                         "888   d88P .d88b.  888 888 .d8888b  88888b.       888    888 888d888 8888b.  888  888  .d88b.  88888b.  888888 .d8888b  \n" +
@@ -290,17 +248,17 @@ public class Intro {
 
     public void printTitle2() {
         System.out.println(CYAN_FOREGROUND +
-                        "█ ▄▄  ████▄ █    ▄█    ▄▄▄▄▄    ▄  █     ██▄   █▄▄▄▄ ██     ▄     ▄▀   ▄  █    ▄▄▄▄▀ ▄▄▄▄▄ \n" +
-                        "█   █ █   █ █    ██   █     ▀▄ █   █     █  █  █  ▄▀ █ █     █  ▄▀    █   █ ▀▀▀ █   █     ▀▄ \n" +
-                        "█▀▀▀  █   █ █    ██ ▄  ▀▀▀▀▄   ██▀▀█     █   █ █▀▀▌  █▄▄█ █   █ █ ▀▄  ██▀▀█     █ ▄  ▀▀▀▀▄ \n" +
-                        "█     ▀████ ███▄ ▐█  ▀▄▄▄▄▀    █   █     █  █  █  █  █  █ █   █ █   █ █   █    █   ▀▄▄▄▄▀ \n" +
-                        " █              ▀ ▐               █      ███▀    █      █ █▄ ▄█  ███     █    ▀ \n" +
-                        "  ▀                              ▀              ▀      █   ▀▀▀          ▀ \n" +
-                        "                                                      ▀ " + RESET + "\n");
+                "█ ▄▄  ████▄ █    ▄█    ▄▄▄▄▄    ▄  █     ██▄   █▄▄▄▄ ██     ▄     ▄▀   ▄  █    ▄▄▄▄▀ ▄▄▄▄▄ \n" +
+                "█   █ █   █ █    ██   █     ▀▄ █   █     █  █  █  ▄▀ █ █     █  ▄▀    █   █ ▀▀▀ █   █     ▀▄ \n" +
+                "█▀▀▀  █   █ █    ██ ▄  ▀▀▀▀▄   ██▀▀█     █   █ █▀▀▌  █▄▄█ █   █ █ ▀▄  ██▀▀█     █ ▄  ▀▀▀▀▄ \n" +
+                "█     ▀████ ███▄ ▐█  ▀▄▄▄▄▀    █   █     █  █  █  █  █  █ █   █ █   █ █   █    █   ▀▄▄▄▄▀ \n" +
+                " █              ▀ ▐               █      ███▀    █      █ █▄ ▄█  ███     █    ▀ \n" +
+                "  ▀                              ▀              ▀      █   ▀▀▀          ▀ \n" +
+                "                                                      ▀ " + RESET + "\n");
     }
 
-
-    public static void printTeamONE() { System.out.println(YELLOWER_FOREGROUND);
+    public static void printTeamONE() {
+        System.out.println(YELLOWER_FOREGROUND);
         printItSlow("   ████████╗███████╗ █████╗ ███╗   ███╗     ██████╗ ███╗   ██╗███████╗");
         System.out.println(BLUER_FOREGROUND);
         printItSlow("   ╚══██╔══╝██╔════╝██╔══██╗████╗ ████║    ██╔═══██╗████╗  ██║██╔════╝");
@@ -315,16 +273,16 @@ public class Intro {
         System.out.println("");
         System.out.println(RED_FOREGROUND);
         printItSlow("         ..... tu czekam na pomysuy od Was (tylko imiona/nicki/role/co chcecie?");
-        for (int i=0; i<10; i++) {
+        for (int i = 0; i < 5; i++) {
             System.out.println("");
             waitFor(333);
         }
         System.out.println(CYAN_FOREGROUND + " na razie wracam do mejnmenjó" + RESET);
+        for (int i = 0; i < 5; i++) {
+            System.out.println("");
+            waitFor(333);
+        }
         waitFor(321);
-        fakeCLS();
-
-
-
     }
 
     public static void printItSlow(String sayWhat) {
@@ -334,21 +292,9 @@ public class Intro {
             waitFor(15);
         }
 
-
-
-
-
     }
-
-
     public void printDocumentation() {
-        try {
-            playSound(("sounds/chimera.wav"));
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        playSound(("sounds/chimera.wav"));
         fakeCLS();
         System.out.println("\n\n" + RED_FOREGROUND);
         System.out.println("                              ...\n" +
@@ -381,7 +327,5 @@ public class Intro {
                 "                               s");
         waitFor(5000);
         System.out.println("\n  Press ENTER to hail Satan!!!\n" + RESET);
-
-
     }
 }

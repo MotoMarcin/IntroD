@@ -20,14 +20,9 @@ import static java.lang.System.exit;
 public class Main {
     public static void main(String[] args) {
         Intro consoleHelper = new Intro();
+        Scanner scanner = new Scanner(System.in);
         consoleHelper.printTitle1();
-        try {
-            playSound("sounds/HAL_9000.wav");
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        playSound("sounds/HAL_9000.wav");
         System.out.println(" Loading...");
 
         try {
@@ -36,8 +31,7 @@ public class Main {
             throw new RuntimeException(e);
         }
         System.out.println("\n Press ENTER to coninue");
-        Scanner scanner = new Scanner(System.in);
-        String dummy= scanner.nextLine();
+        waitForEnter();
 
         System.out.println("\n");
         consoleHelper.waitFor(100);
@@ -52,13 +46,7 @@ public class Main {
                 " [6] - Exit"
         };
 
-        try {
-            playSound("sounds/just_a_moment.wav");
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        playSound("sounds/just_a_moment.wav");
         consoleHelper.printTitle2();
         int option = 1;
         while (option!=6){
@@ -76,9 +64,13 @@ public class Main {
                         break;
                     case 3:
                         consoleHelper.showHistoryofDraughts();
+                        System.out.println("           Press ENTER to continue");
+                        waitForEnter();
                         break;
                     case 4:
                         teamInfo();
+                        System.out.println("       Press Enter if you love Team ONE.");
+                        waitForEnter();
                         break;
                     case 5:
                         consoleHelper.quoteOfTheDay();
@@ -99,13 +91,7 @@ public class Main {
             catch (Exception ex){
                 System.out.println(RED_FOREGROUND + "   Well, that's not how we get along. Follow the instructions below." + RESET);
                 System.out.println("   Please choose an option (number between 1 and " + options.length + ")...\n");
-                try {
-                    playSound("sounds/enough_info.wav");
-                } catch (LineUnavailableException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                playSound("sounds/enough_info.wav");
                 scanner.next();
             }
         }
@@ -119,7 +105,6 @@ public class Main {
         Scanner s666 = new Scanner(System.in);
         String ave = " ";
         ave = s666.nextLine();
-        s666.nextLine();
     }
 
 
